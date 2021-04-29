@@ -1,0 +1,19 @@
+{
+  "type": "postgres",
+  "host": "tai.db.elephantsql.com",
+  "port": 5432,
+  "username": "jsexktvd",
+  "password": "LxE52dHDuFjhfGR27cspVkoNt1fk1Nw1",
+  "database": "jsexktvd",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+     "dist/entities/**/*.js"
+  ],
+  "migrations": [
+     "dist/migrations/**/*.js"
+  ],
+  "subscribers": [
+     "dist/subscriber/**/*.js"
+  ]
+}
