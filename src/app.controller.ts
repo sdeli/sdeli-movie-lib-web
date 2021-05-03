@@ -1,9 +1,15 @@
+import { MovieService } from './movie/movie.service';
+import { GenreService } from './genre/genre.service';
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(
+    private readonly appService: AppService,
+    private readonly genreService: GenreService,
+    private readonly movieService: MovieService,
+  ) {}
 
   @Get()
   getHello(): string {
@@ -12,9 +18,9 @@ export class AppController {
 
   @Get('seed')
   async seedInitialData() {
-    const directors = await this.appService.seedInitialDirectors();
-    const actors = await this.appService.seedInitialActors();
-    const genres = await this.appService.seedInitialGenres();
-    return this.appService.seedInitialMovies(directors, actors, genres);
+    const directors = await this.movieService.seedInitialDirectors();
+    const actors = await this.movieService.seedInitialActors();
+    const genres = await this.genreService.seedInitialGenres();
+    return this.movieService.seedInitialMovies(directors, actors, genres);
   }
 }

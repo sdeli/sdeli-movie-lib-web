@@ -1,4 +1,4 @@
-import { Genre } from './genre.entity';
+import { Genre } from './../../genre/entities/genre.entity';
 import { Actor } from './actor.entity';
 import { Director } from './director.entity';
 import {
@@ -12,8 +12,11 @@ import {
 
 @Entity()
 export class Movie {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: number;
+
+  @Column({ type: 'text', nullable: true })
+  img: string;
 
   @Column()
   name: string;
