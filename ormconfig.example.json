@@ -1,0 +1,19 @@
+{
+  "type": "postgres",
+  "host": "example",
+  "port": 5432,
+  "username": "example",
+  "password": "example",
+  "database": "example",
+  "synchronize": true,
+  "logging": false,
+  "entities": [
+     "dist/entities/**/*.js"
+  ],
+  "migrations": [
+     "dist/migrations/**/*.js"
+  ],
+  "subscribers": [
+     "dist/subscriber/**/*.js"
+  ]
+}
