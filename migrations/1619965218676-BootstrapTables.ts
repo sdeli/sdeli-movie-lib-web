@@ -1,23 +1,23 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class BootstrapTables1619949161505 implements MigrationInterface {
-  name = 'BootstrapTables1619949161505';
+export class BootstrapTables1619965218676 implements MigrationInterface {
+  name = 'BootstrapTables1619965218676';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "actor" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_05b325494fcc996a44ae6928e5e" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "genre" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, CONSTRAINT "PK_0285d4f1655d080cfcf7d1ab141" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "director" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_b85b179882f31c43324ef124fea" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "actor" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, CONSTRAINT "PK_05b325494fcc996a44ae6928e5e" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "genre" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_0285d4f1655d080cfcf7d1ab141" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "director" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, CONSTRAINT "PK_b85b179882f31c43324ef124fea" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "movie" ("id" SERIAL NOT NULL, "name" character varying NOT NULL, "description" character varying NOT NULL, "rating" integer NOT NULL, "directorId" integer, CONSTRAINT "PK_cb3bb4d61cf764dc035cbedd422" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "movie" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "img" text, "name" character varying NOT NULL, "description" character varying NOT NULL, "rating" integer NOT NULL, "directorId" uuid, CONSTRAINT "PK_cb3bb4d61cf764dc035cbedd422" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "movie_actors_actor" ("movieId" integer NOT NULL, "actorId" integer NOT NULL, CONSTRAINT "PK_a69e570bd35d7cd2139d12270e9" PRIMARY KEY ("movieId", "actorId"))`,
+      `CREATE TABLE "movie_actors_actor" ("movieId" uuid NOT NULL, "actorId" uuid NOT NULL, CONSTRAINT "PK_a69e570bd35d7cd2139d12270e9" PRIMARY KEY ("movieId", "actorId"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_992f9af300d8c96c46fea4e541" ON "movie_actors_actor" ("movieId") `,
@@ -26,7 +26,7 @@ export class BootstrapTables1619949161505 implements MigrationInterface {
       `CREATE INDEX "IDX_65be8ded67af2677acfd19854c" ON "movie_actors_actor" ("actorId") `,
     );
     await queryRunner.query(
-      `CREATE TABLE "movie_genres_genre" ("movieId" integer NOT NULL, "genreId" integer NOT NULL, CONSTRAINT "PK_aee18568f9fe4ecca74f35891af" PRIMARY KEY ("movieId", "genreId"))`,
+      `CREATE TABLE "movie_genres_genre" ("movieId" uuid NOT NULL, "genreId" uuid NOT NULL, CONSTRAINT "PK_aee18568f9fe4ecca74f35891af" PRIMARY KEY ("movieId", "genreId"))`,
     );
     await queryRunner.query(
       `CREATE INDEX "IDX_985216b45541c7e0ec644a8dd4" ON "movie_genres_genre" ("movieId") `,
@@ -74,8 +74,8 @@ export class BootstrapTables1619949161505 implements MigrationInterface {
     await queryRunner.query(`DROP INDEX "IDX_992f9af300d8c96c46fea4e541"`);
     await queryRunner.query(`DROP TABLE "movie_actors_actor"`);
     await queryRunner.query(`DROP TABLE "movie"`);
-    await queryRunner.query(`DROP TABLE "genre"`);
     await queryRunner.query(`DROP TABLE "director"`);
     await queryRunner.query(`DROP TABLE "actor"`);
+    await queryRunner.query(`DROP TABLE "genre"`);
   }
 }

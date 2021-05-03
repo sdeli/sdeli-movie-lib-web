@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Genre {
-  @PrimaryGeneratedColumn()
+export class Director {
+  @PrimaryGeneratedColumn('uuid')
   id: number;
 
   @Column()
